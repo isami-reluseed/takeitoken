@@ -1,0 +1,15 @@
+﻿{
+  "name": "takeitoken-poc",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "TAKEI TOKEN campaign POC (LIFF + Kairos Testnet only)",
+  "scripts": {
+    "start": "node src/server.mjs",
+    "dev": "node --watch src/server.mjs",
+    "check": "node --check src/server.mjs && node --check src/config.mjs && node --check src/db.mjs && node --check src/auth.mjs && node --check src/kaia.mjs"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}
