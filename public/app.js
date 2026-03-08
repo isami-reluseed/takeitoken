@@ -9,6 +9,7 @@
 const REQUEST_TIMEOUT_MS = 15000;
 const COIN_IMAGE_URL = "/assets/TAKEI_COIN.png";
 const COIN_IMAGE_FALLBACK_URL = "/assets/TAKEI_COIN.png";
+const LINE_RETURN_URL = "https://lin.ee/s7Fc7os";
 
 const elements = {
   message: document.querySelector("#status-message"),
@@ -19,6 +20,7 @@ const elements = {
   processingModal: document.querySelector("#processing-modal"),
   toMypageButton: document.querySelector("#to-mypage-button"),
   backLineButton: document.querySelector("#back-line-button"),
+  backLineButtonMypage: document.querySelector("#back-line-button-mypage"),
   completeTakenId: document.querySelector("#complete-taken-id"),
   mypageTakenId: document.querySelector("#mypage-taken-id"),
 };
@@ -275,6 +277,10 @@ async function handleClaim() {
   }
 }
 
+function openLineReturnUrl() {
+  window.location.href = LINE_RETURN_URL;
+}
+
 function registerEvents() {
   elements.claimButton.addEventListener("click", handleClaim);
 
@@ -282,13 +288,11 @@ function registerEvents() {
     setView("mypage");
   });
 
-  elements.backLineButton.addEventListener("click", () => {
-    if (window.liff && window.liff.isInClient()) {
-      window.liff.closeWindow();
-      return;
-    }
-    window.location.href = "https://line.me";
-  });
+  elements.backLineButton.addEventListener("click", openLineReturnUrl);
+
+  if (elements.backLineButtonMypage) {
+    elements.backLineButtonMypage.addEventListener("click", openLineReturnUrl);
+  }
 }
 
 async function init() {

@@ -225,6 +225,16 @@ button[disabled] {
   word-break: break-all;
 }
 
+.mypage-bottom-action {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.mypage-back-button {
+  width: min(100%, 360px);
+}
+
 .modal {
   position: fixed;
   inset: 0;
