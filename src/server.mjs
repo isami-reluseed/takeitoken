@@ -214,11 +214,6 @@ export async function startServer(overrides = {}) {
           return;
         }
 
-        const body = await readJsonBody(request);
-        if (!body.termsAgreed) {
-          sendJson(response, 400, { message: "利用規約への同意が必要です。" });
-          return;
-        }
 
         const campaign = database.getCampaign();
         const now = Date.now();
@@ -353,3 +348,4 @@ if (isEntryPoint) {
     process.exit(1);
   });
 }
+

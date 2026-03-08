@@ -1,12 +1,12 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>TAKEI TOKEN POC</title>
-    <link rel="stylesheet" href="/styles.css?v=20260307g" />
+    <link rel="stylesheet" href="/styles.css?v=20260308a" />
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <script type="module" src="/app.js?v=20260307g" defer></script>
+    <script type="module" src="/app.js?v=20260308a" defer></script>
   </head>
   <body>
     <main class="container">
@@ -28,15 +28,7 @@
           <p class="coin-text">10,000 TAKEI TOKEN</p>
         </div>
 
-        <label class="terms">
-          <input id="terms-checkbox" type="checkbox" />
-          <span>
-            <a id="terms-link" href="#" target="_blank" rel="noreferrer">&#x5229;&#x7528;&#x898F;&#x7D04;</a>
-            &#x306B;&#x540C;&#x610F;&#x3057;&#x307E;&#x3059;
-          </span>
-        </label>
-
-        <button id="claim-button" class="primary claim-main-button" disabled>&#x53D7;&#x3051;&#x53D6;&#x308B;</button>
+        <button id="claim-button" class="primary claim-main-button">&#x53D7;&#x3051;&#x53D6;&#x308B;</button>
       </section>
 
       <section id="complete-view" class="card" hidden>
@@ -47,6 +39,14 @@
           <img id="complete-coin-image" class="coin-image" src="/assets/TAKEI_COIN.png" alt="TAKEI COIN" />
           <p id="complete-coin-text" class="coin-text">10,000 TAKEI TOKEN &#x53D7;&#x3051;&#x53D6;&#x308A;&#x6E08;&#x307F;</p>
         </div>
+
+        <section class="blockchain-section">
+          <h3>&#x30D6;&#x30ED;&#x30C3;&#x30AF;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x60C5;&#x5831;</h3>
+          <div class="blockchain-row">
+            <p class="blockchain-label">Taken ID</p>
+            <p id="complete-taken-id" class="blockchain-value">-</p>
+          </div>
+        </section>
 
         <div class="actions">
           <button id="to-mypage-button" class="primary">&#x30DE;&#x30A4;&#x30DA;&#x30FC;&#x30B8;&#x3092;&#x898B;&#x308B;</button>
@@ -77,6 +77,14 @@
 
         <img id="mypage-nft-image" class="nft-image" src="" alt="NFT image" />
         <p id="mypage-nft-name" class="nft-name"></p>
+
+        <section class="blockchain-section">
+          <h3>&#x30D6;&#x30ED;&#x30C3;&#x30AF;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x60C5;&#x5831;</h3>
+          <div class="blockchain-row">
+            <p class="blockchain-label">Taken ID</p>
+            <p id="mypage-taken-id" class="blockchain-value">-</p>
+          </div>
+        </section>
       </section>
     </main>
 

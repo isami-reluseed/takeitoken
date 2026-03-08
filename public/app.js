@@ -1,4 +1,4 @@
-const state = {
+﻿const state = {
   token: null,
   appConfig: null,
   campaign: null,
@@ -15,11 +15,12 @@ const elements = {
   claimView: document.querySelector("#claim-view"),
   completeView: document.querySelector("#complete-view"),
   mypageView: document.querySelector("#mypage-view"),
-  termsCheckbox: document.querySelector("#terms-checkbox"),
   claimButton: document.querySelector("#claim-button"),
   processingModal: document.querySelector("#processing-modal"),
   toMypageButton: document.querySelector("#to-mypage-button"),
   backLineButton: document.querySelector("#back-line-button"),
+  completeTakenId: document.querySelector("#complete-taken-id"),
+  mypageTakenId: document.querySelector("#mypage-taken-id"),
 };
 
 function setMessage(text, { error = false } = {}) {
@@ -37,8 +38,7 @@ function setMessage(text, { error = false } = {}) {
 
 function setProcessing(isLoading) {
   elements.processingModal.hidden = !isLoading;
-  elements.claimButton.disabled =
-    isLoading || !elements.termsCheckbox.checked || state.me?.claimed;
+  elements.claimButton.disabled = isLoading;
 }
 
 function setView(view) {
@@ -73,6 +73,16 @@ function setupCoinImages() {
   }
 }
 
+function getTakenId(me) {
+  return me?.blockchain?.takenId ?? "-";
+}
+
+function renderBlockchainInfo(me) {
+  const takenId = getTakenId(me);
+  elements.completeTakenId.textContent = takenId;
+  elements.mypageTakenId.textContent = takenId;
+}
+
 function hydrateCampaign(campaign) {
   const descriptionElement = document.querySelector("#claim-nft-description");
 
@@ -89,7 +99,6 @@ function hydrateCampaign(campaign) {
 
   document.querySelector("#claim-summary").textContent = `NFT 1\u679A + ${campaign.coinAmount.toLocaleString("ja-JP")} TAKEI TOKEN \u3092\u53D7\u3051\u53D6\u308C\u307E\u3059`;
   document.querySelector("#complete-coin-text").textContent = `${campaign.coinAmount.toLocaleString("ja-JP")} TAKEI TOKEN \u53D7\u3051\u53D6\u308A\u6E08\u307F`;
-  document.querySelector("#terms-link").href = campaign.termsUrl;
 }
 
 function renderMypage(me) {
@@ -98,6 +107,7 @@ function renderMypage(me) {
   document.querySelector("#mypage-coin-balance").textContent = `${Number(me.coinBalance).toLocaleString("ja-JP")} TTK`;
   document.querySelector("#mypage-claimed-at").textContent = formatDate(me.claimedAt);
   document.querySelector("#mypage-nft-name").textContent = me.nft.name;
+  renderBlockchainInfo(me);
 }
 
 async function api(path, options = {}) {
@@ -239,18 +249,12 @@ async function refreshMypage() {
 }
 
 async function handleClaim() {
-  if (!elements.termsCheckbox.checked) {
-    setMessage("\u5229\u7528\u898F\u7D04\u306B\u540C\u610F\u3057\u3066\u304F\u3060\u3055\u3044\u3002", { error: true });
-    return;
-  }
-
   setMessage("");
   setProcessing(true);
 
   try {
     const result = await api("/api/claim", {
       method: "POST",
-      body: JSON.stringify({ termsAgreed: true }),
     });
 
     state.me = result.me;
@@ -272,10 +276,6 @@ async function handleClaim() {
 }
 
 function registerEvents() {
-  elements.termsCheckbox.addEventListener("change", () => {
-    elements.claimButton.disabled = !elements.termsCheckbox.checked || state.me?.claimed;
-  });
-
   elements.claimButton.addEventListener("click", handleClaim);
 
   elements.toMypageButton.addEventListener("click", () => {
@@ -320,7 +320,7 @@ async function init() {
       setView("claim");
     }
 
-    elements.claimButton.disabled = !elements.termsCheckbox.checked;
+    elements.claimButton.disabled = false;
   } catch (error) {
     setMessage(error.message ?? "\u521D\u671F\u5316\u306B\u5931\u6557\u3057\u307E\u3057\u305F\u3002", { error: true });
   }

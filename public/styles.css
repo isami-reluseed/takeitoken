@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --bg: #f4f2ea;
   --card: #ffffff;
   --ink: #1f2937;
@@ -123,14 +123,6 @@ body {
   font-weight: 700;
 }
 
-.terms {
-  display: flex;
-  gap: 8px;
-  align-items: start;
-  font-size: 14px;
-  margin-bottom: 12px;
-}
-
 .claim-main-button {
   display: block;
   width: min(100%, 360px);
@@ -199,6 +191,40 @@ button[disabled] {
   font-weight: 700;
 }
 
+.blockchain-section {
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #f3f4f6;
+  padding: 12px 14px;
+}
+
+.blockchain-section h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.blockchain-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.blockchain-label {
+  margin: 0;
+  color: var(--muted);
+  min-width: 72px;
+}
+
+.blockchain-value {
+  margin: 0;
+  text-align: right;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 13px;
+  word-break: break-all;
+}
+
 .modal {
   position: fixed;
   inset: 0;
@@ -234,5 +260,14 @@ button[disabled] {
 
   button {
     width: 100%;
+  }
+
+  .blockchain-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .blockchain-value {
+    text-align: left;
   }
 }

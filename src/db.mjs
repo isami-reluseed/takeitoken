@@ -126,7 +126,7 @@ export function openDatabase(config) {
   );
 
   const findLatestSuccessClaim = db.prepare(
-    "SELECT claim_id, nft_token_id, created_at FROM claim_logs WHERE line_user_id = ? AND status = 'SUCCESS' ORDER BY created_at DESC LIMIT 1",
+    "SELECT claim_id, nft_token_id, nft_tx_hash, created_at FROM claim_logs WHERE line_user_id = ? AND status = 'SUCCESS' ORDER BY created_at DESC LIMIT 1",
   );
 
   function ensureUser(lineUserId, displayName) {
@@ -191,6 +191,9 @@ export function openDatabase(config) {
           description: campaign.nft_description,
           imageUrl: config.nftImageUrl,
           tokenId: latestClaim?.nft_token_id ?? null,
+        },
+        blockchain: {
+          takenId: latestClaim?.nft_tx_hash ?? null,
         },
       };
     },
